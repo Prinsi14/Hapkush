@@ -1,23 +1,28 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Explore from "./pages/Explore";
+import Profile from "./pages/Profile";
+import Footer from "./components/Footer";
+
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 to-pink-500 flex items-center justify-center">
-      <div className="bg-white rounded-2xl shadow-xl p-10 text-center max-w-md">
-        <h1 className="text-4xl font-bold text-gray-800 mb-4">
-          MemeGram 😂
-        </h1>
+    <Router>
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
 
-        <p className="text-gray-600 mb-6">
-          Welcome to MemeGram! Your memes, your feed.
-        </p>
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/explore" element={<Explore />} />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
+        </div>
 
-        <button className="px-6 py-3 bg-purple-600 text-white rounded-full font-semibold hover:bg-purple-700 transition">
-          Get Started
-        </button>
+        <Footer />
       </div>
-    </div>
+    </Router>
   );
 }
 
 export default App;
-
-
