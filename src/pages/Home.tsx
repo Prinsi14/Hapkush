@@ -1,45 +1,45 @@
 import MemeCard from "../components/MemeCard";
 
-export default function Home() {
+const memes = [
+  {
+    title: "When code works on first try 😎",
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800"
+  },
+  {
+    title: "Debugging be like 🤯",
+    image: "https://images.unsplash.com/photo-1508780709619-79562169bc64?w=800"
+  },
+  {
+    title: "Frontend vs Backend 😂",
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800"
+  }
+];
 
-  const memes = [
-    {
-      image: "https://i.imgflip.com/30b1gx.jpg",
-      title: "When you fix a bug without knowing how 😎"
-    },
-    {
-      image: "https://i.imgflip.com/1bij.jpg",
-      title: "Me learning React be like 😂"
-    },
-    {
-      image: "https://i.imgflip.com/26am.jpg",
-      title: "Group project vs reality 🤡"
-    },
-    {
-      image: "https://i.imgflip.com/2wifvo.jpg",
-      title: "When assignment deadline is tomorrow 😭"
-    }
-  ];
 
+function Home() {
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-6">
-
-      <h1 className="text-4xl font-bold text-center mb-10">
-        Trending Memes 🔥
-      </h1>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {memes.map((meme, index) => (
-          <MemeCard
-            key={index}
-            image={meme.image}
-            title={meme.title}
-          />
-        ))}
-      </div>
-
+    <div className="p-6 grid md:grid-cols-3 gap-6">
+      {memes.map((meme, index) => (
+        <MemeCard
+          key={index}
+          title={meme.title}
+          image={meme.image}
+        />
+      ))}
     </div>
   );
 }
+
+export default Home;
+
+
+
+
+   
+
+   
+
+
+
 
 

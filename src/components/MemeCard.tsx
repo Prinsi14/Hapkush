@@ -1,28 +1,42 @@
-type MemeCardProps = {
-  image: string;
+import { useState } from "react";
+
+interface MemeProps {
   title: string;
-};
+  image: string;
+}
 
-export default function MemeCard({ image, title }: MemeCardProps) {
+const MemeCard = ({ title, image }: MemeProps) => {
+  const [likes, setLikes] = useState(0);
+
   return (
-    <div className="bg-white rounded-2xl shadow-lg overflow-hidden 
-                    hover:scale-105 transform transition duration-300">
-
-      <img
-        src={image}
-        alt={title}
-        className="w-full h-60 object-cover"
-      />
+    <div className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl hover:scale-105 transform transition duration-300">
+      
+      <img src={image} alt={title} className="w-full h-60 object-cover" />
 
       <div className="p-4">
-        <h2 className="text-lg font-semibold">{title}</h2>
+        <h2 className="text-lg font-semibold mb-2">{title}</h2>
 
-        <div className="flex justify-between mt-3 text-sm text-gray-600">
-          <span>❤️ 1.2k</span>
-          <span>💬 230</span>
-          <span>🔄 50</span>
-        </div>
+        <button
+          onClick={() => setLikes(likes + 1)}
+          className="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition"
+        >
+          ❤️ Like {likes}
+        </button>
       </div>
     </div>
   );
-}
+};
+
+export default MemeCard;
+
+
+
+
+
+
+
+
+
+
+
+
