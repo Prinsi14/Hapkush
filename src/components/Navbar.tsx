@@ -1,37 +1,42 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Navbar() {
+interface NavbarProps {
+  darkMode: boolean;
+  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Navbar = ({ darkMode, setDarkMode, setIsLoggedIn }: NavbarProps) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    navigate("/");
+  };
+
   return (
-    <nav className="bg-gradient-to-r from-purple-700 via-pink-600 to-indigo-700 
-                    text-white sounding-lg shadow-md px-8 py-4 flex justify-between items-center">
+    <nav className="flex justify-between items-center px-6 py-4 shadow-md bg-white dark:bg-gray-900 transition-colors duration-300">
+      <h1 className="text-xl font-bold dark:text-white">Hapkush</h1>
 
-      <h1 className="text-2xl font-bold tracking-wide">
-        MemeGram 😂
-      </h1>
+      <div className="flex gap-4 items-center">
+        <Link to="/" className="dark:text-white">Home</Link>
+        <Link to="/explore" className="dark:text-white">Explore</Link>
+        <Link to="/profile" className="dark:text-white">Profile</Link>
 
-      <div className="space-x-6 text-lg font-medium">
-        <Link 
-          to="/" 
-          className="hover:text-yellow-300 transition duration-300"
+        <button
+          onClick={handleLogout}
+          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
         >
-          Home
-        </Link>
-
-        <Link 
-          to="/explore" 
-          className="hover:text-yellow-300 transition duration-300"
-        >
-          Explore
-        </Link>
-
-        <Link 
-          to="/profile" 
-          className="hover:text-yellow-300 transition duration-300"
-        >
-          Profile
-        </Link>
+          Logout
+        </button>
       </div>
     </nav>
   );
-}
+};
+
+export default Navbar;
+
+
+
+
 

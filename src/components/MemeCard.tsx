@@ -1,26 +1,16 @@
-import { useState } from "react";
-
-interface MemeProps {
+interface MemeCardProps {
   title: string;
   image: string;
 }
 
-const MemeCard = ({ title, image }: MemeProps) => {
-  const [likes, setLikes] = useState(0);
-
+const MemeCard = ({ title, image }: MemeCardProps) => {
   return (
-    <div className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl hover:scale-105 transform transition duration-300">
-      
-      <img src={image} alt={title} className="w-full h-60 object-cover" />
-
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+      <img src={image} alt={title} className="h-60 w-full object-cover" />
       <div className="p-4">
-        <h2 className="text-lg font-semibold mb-2">{title}</h2>
-
-        <button
-          onClick={() => setLikes(likes + 1)}
-          className="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition"
-        >
-          ❤️ Like {likes}
+        <h3 className="font-semibold dark:text-white">{title}</h3>
+        <button className="mt-3 bg-pink-500 text-white px-4 py-2 rounded-lg">
+          ❤️ Like
         </button>
       </div>
     </div>
@@ -28,6 +18,7 @@ const MemeCard = ({ title, image }: MemeProps) => {
 };
 
 export default MemeCard;
+
 
 
 
