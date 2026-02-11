@@ -18,11 +18,12 @@ function App() {
     <Router>
       <div className={darkMode ? "dark bg-gray-900 text-white min-h-screen flex flex-col" : "min-h-screen flex flex-col"}>
         
-         <Navbar
+<Navbar
   darkMode={darkMode}
   setDarkMode={setDarkMode}
   setIsLoggedIn={setIsLoggedIn}
 />
+
 
 
         <div className="flex-grow">

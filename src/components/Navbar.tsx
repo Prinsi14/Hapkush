@@ -23,6 +23,15 @@ const Navbar = ({ darkMode, setDarkMode, setIsLoggedIn }: NavbarProps) => {
         <Link to="/explore" className="dark:text-white">Explore</Link>
         <Link to="/profile" className="dark:text-white">Profile</Link>
 
+        {/* Dark Mode Button */}
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          className="px-3 py-1 bg-black text-white rounded"
+        >
+          {darkMode ? "Light" : "Dark"}
+        </button>
+
+        {/* Logout Button */}
         <button
           onClick={handleLogout}
           className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
@@ -35,6 +44,7 @@ const Navbar = ({ darkMode, setDarkMode, setIsLoggedIn }: NavbarProps) => {
 };
 
 export default Navbar;
+
 
 
 
