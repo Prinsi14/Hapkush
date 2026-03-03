@@ -1,19 +1,24 @@
 import { useState } from "react";
-import { db, auth } from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
 
 const UploadMeme = () => {
   const [image, setImage] = useState<File | null>(null);
-  const [caption, setCaption] = useState("");
+  const [loading, setLoading] = useState(false);
 
+  // Upload function
   const handleUpload = async () => {
-    if (!image) return alert("Select an image");
+    if (!image) {
+      alert("Please select an image");
+      return;
+    }
     try {
-      // 🔥 Cloudinary upload
+      setLoading(true);
+
+      // Prepare form data
       const formData = new FormData();
       formData.append("file", image);
-      formData.append("upload_preset", "memes_upload"); // preset name
+      formData.append("upload_preset", "memes_upload"); // unsigned preset
 
+      // Cloudinary API call
       const res = await fetch(
         "https://api.cloudinary.com/v1_1/dg0jyfea8/image/upload",
         {
@@ -23,45 +28,40 @@ const UploadMeme = () => {
       );
 
       const data = await res.json();
-      const imageUrl = data.secure_url;
+      console.log("Image URL:", data.secure_url);
 
-      // 🔥 Firestore save
-      await addDoc(collection(db, "memes"), {
-        caption,
-        imageUrl,
-        userId: auth.currentUser?.uid,
-        createdAt: new Date(),
-      });
-
-      alert("Meme uploaded 🎉");
-      setCaption("");
-      setImage(null);
-    } catch (error) {
-      alert("Upload failed");
+      if (data.secure_url) {
+        alert("Image uploaded successfully 🎉");
+      } else {
+        alert("Upload failed ❌");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Upload failed ❌");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-xl font-bold mb-4">Upload Meme</h2>
+    <div style={{ padding: 40 }}>
+      <h2>Upload Meme</h2>
+
+      {/* Image select */}
       <input
         type="file"
-        onChange={(e) =>
-          setImage(e.target.files ? e.target.files[0] : null)
-        }
+        accept="image/*"
+        onChange={(e) => {
+          if (e.target.files) {
+            setImage(e.target.files[0]);
+          }
+        }}
       />
-      <input
-        type="text"
-        placeholder="Enter caption"
-        className="block border p-2 my-3"
-        value={caption}
-        onChange={(e) => setCaption(e.target.value)}
-      />
-      <button
-        onClick={handleUpload}
-        className="bg-black text-white px-4 py-2 rounded"
-      >
-        Upload
+      <br /><br />
+
+      {/* Upload button */}
+      <button onClick={handleUpload} disabled={loading}>
+        {loading ? "Uploading..." : "Upload"}
       </button>
     </div>
   );
